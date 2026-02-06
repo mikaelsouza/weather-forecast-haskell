@@ -1,0 +1,8 @@
+build/
+weather
+run_tests
+*.o
+*.hi
+weather.exe
+run_tests.exe
+.DS_Store
