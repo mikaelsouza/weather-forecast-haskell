@@ -24,7 +24,13 @@ make build
 ./weather "New York"
 ```
 
-### 3. Run the test suite
+### 3. Version Control with Jujutsu (JJ)
+This project is managed using `jj`. To see the current status:
+```bash
+jj status
+```
+
+### 4. Run the test suite
 ```bash
 make test
 ```

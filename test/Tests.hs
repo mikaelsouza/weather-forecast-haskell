@@ -35,9 +35,9 @@ main = do
     
     let mockWeather = "{\"daily\":{\"time\":[\"2024-01-01\"],\"weather_code\":[0],\"temperature_2m_max\":[10.0],\"temperature_2m_min\":[5.0]}}"
     test "Parse Weather Success" $ case parseWeather "Berlin" mockWeather of
-        Just wd -> 
-            let f = head (forecasts wd)
-            in length (forecasts wd) == 1 && cityName wd == "Berlin" && maxTempC f == 10.0 && maxTempF f == 50.0
+        Just wd -> case forecasts wd of
+            (f:_) -> length (forecasts wd) == 1 && cityName wd == "Berlin" && maxTempC f == 10.0 && maxTempF f == 50.0
+            [] -> False
         Nothing -> False
 
     let mockWeatherMissing = "{\"daily\":{}}"
