@@ -1,56 +1,52 @@
-# JJ - Weather Forecast TUI
+# JJ - Weather Forecast TUI 🌦️
 
-JJ is a minimalist, dependency-free Text User Interface (TUI) for 7-day weather forecasts, built entirely in Haskell.
+JJ is a high-performance, minimalist Text User Interface (TUI) for 7-day weather forecasts. It is built entirely in **pure Haskell** with **zero external dependencies**, leveraging direct FFI bindings to the system's C libraries.
 
-## Features
+## ✨ Key Features
 
-- **Zero External Dependencies**: Implements everything from the ground up using only Haskell's `base` and system boot libraries.
-- **Custom Networking**: Low-level TCP socket implementation via FFI to `libc` for DNS and data transport.
-- **Scratch HTTP/1.1 Client**: Supports GET requests and Chunked Transfer Encoding (required for modern APIs).
-- **Hand-rolled JSON Parser**: Recursive descent parser for weather data and geocoding results.
-- **ANSI-powered TUI**: A beautiful, color-coded dashboard showing conditions and temperatures in both **Celsius and Fahrenheit**.
-- **Comprehensive Testing**: Full test suite covering edge cases and fail states.
+- **🚀 Zero Dependencies**: No `cabal` or `stack` needed. Just `ghc` and `make`.
+- **🔌 Low-Level Networking**: Implements its own TCP socket layer via FFI to `libc`.
+- **🛠️ Custom HTTP/1.1 Client**: Built from scratch to handle GET requests, headers, and Chunked Transfer Encoding.
+- **🔡 Monadic JSON Parser**: A hand-rolled recursive descent parser for API responses.
+- **🎨 Beautiful TUI**: Color-coded output using ANSI escape sequences with support for 50+ weather conditions.
+- **🌡️ Dual Units**: Displays all temperatures in both **Celsius** and **Fahrenheit** simultaneously.
+- **🧪 Robust Testing**: Includes a full suite of unit tests for the JSON and API logic.
 
-## Project Structure
+## 🚀 Quick Start (Reproduce in 30 seconds)
 
-- `src/Weather/`: Core library (Networking, HTTP, JSON, TUI logic).
-- `app/`: Application entry point.
-- `test/`: Unit tests and failure case verification.
-- `Makefile`: Build automation.
-
-## Getting Started
-
-### Prerequisites
-
-- GHC (Glasgow Haskell Compiler)
-
-### Building
-
-To compile the project:
+### 1. Build the project
 ```bash
 make build
 ```
 
-### Usage
-
-Run the program with a city name:
+### 2. Run the forecast
 ```bash
 ./weather "New York"
 ```
 
-### Testing
-
-Run the automated test suite:
+### 3. Run the test suite
 ```bash
 make test
 ```
 
-## How it Works
+## 📂 Project Structure
 
-JJ talks directly to the [Open-Meteo API](https://open-meteo.com/). It first resolves the city name to coordinates using the Geocoding API, then fetches the 7-day daily forecast. Since it uses no external Haskell libraries for HTTP or JSON, it implements:
-1. **SocketTransport**: FFI bindings to POSIX `socket`, `connect`, etc.
-2. **HttpClient**: HTTP/1.1 protocol handling including header parsing and chunked decoding.
-3. **JsonParser**: A monadic parser combinator library built from scratch.
+- `app/Main.hs`: Command-line interface and error handling.
+- `src/Weather/`:
+  - `SocketTransport.hs`: Low-level C bindings for networking.
+  - `HttpClient.hs`: Custom HTTP implementation.
+  - `JsonParser.hs`: Monadic JSON parsing engine.
+  - `WeatherAPI.hs`: Open-Meteo integration and geocoding.
+  - `TUI.hs`: ANSI rendering and weather condition logic.
+- `test/Tests.hs`: Comprehensive unit tests.
+- `Makefile`: Simple build system.
+
+## 🛠️ Technical Implementation
+
+JJ communicates directly with the **Open-Meteo API**.
+1. **Geocoding**: Converts a city string into coordinates via the Search API.
+2. **Forecast**: Fetches a 7-day daily forecast including weather codes and min/max temperatures.
+3. **Rendering**: Standardizes output to a 65-character wide frame for consistent terminal display.
 
 ---
-*Created with ❤️ in Haskell*
+*Developed with focus on simplicity and performance in pure Haskell. This entire project, including the custom networking stack and JSON parser, was written by an AI (Antigravity).*
